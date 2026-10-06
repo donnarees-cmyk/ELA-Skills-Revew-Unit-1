@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 6 ELA Quest: Ultimate Exam & Skill Review</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+    .font-orbitron { font-family: 'Orbitron', sans-serif; }
+    .neon-border-cyan { box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); border-color: #06b6d4; }
+    .neon-border-purple { box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); border-color: #a855f7; }
+    .neon-border-green { box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); border-color: #22c55e; }
+    .neon-text-cyan { text-shadow: 0 0 10px rgba(6, 182, 212, 0.7); }
+    .vocab-tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+      border-bottom: 2px dashed #06b6d4;
+      color: #38bdf8;
+      font-weight: 600;
+      padding: 0 4px;
+      border-radius: 4px;
+      background: rgba(6, 182, 212, 0.1);
+    }
+    .vocab-tooltip .tooltip-text {
+      visibility: hidden;
+      width: 280px;
+      background-color: #1e293b;
+      color: #f8fafc;
+      text-align: left;
+      border-radius: 8px;
+      padding: 10px 12px;
+      position: absolute;
+      z-index: 50;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.2s, visibility 0.2s;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.8), 0 0 10px rgba(56, 189, 248, 0.5);
+      border: 1px solid #38bdf8;
+      font-size: 0.825rem;
+      line-height: 1.25rem;
+      font-weight: normal;
+    }
+    .vocab-tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    .badge-vocab {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid #a855f7;
+      color: #c084fc;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+    @media print {
+      body { background: white !important; color: black !important; }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .print-card { border: 1px solid #000 !important; box-shadow: none !important; color: black !important; background: white !important; }
+    }
+  </style>
+</head>
+<body class="p-2 sm:p-4 md:p-6 select-none">
+
+  <!-- Header Banner -->
+  <header class="max-w-6xl mx-auto mb-6 bg-slate-900/80 backdrop-blur border border-slate-800 rounded-2xl p-4 flex flex-wrap justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-xl font-black font-orbitron text-white">6</div>
+      <div>
+        <h1 class="font-orbitron font-extrabold text-lg sm:text-xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-400">
+          ELA QUEST: EXAM & SKILL REVIEW
+        </h1>
+        <p class="text-xs text-slate-400">Grade 6 Standard Skill Assessment Hub</p>
+      </div>
+    </div>
+    <div id="userInfoHeader" class="hidden flex items-center gap-4 text-xs sm:text-sm bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700">
+      <div>👤 <span id="hdrName" class="font-semibold text-cyan-300"></span></div>
+      <div>🏫 <span id="hdrPeriod" class="font-semibold text-purple-300"></span></div>
+      <div>⏱️ <span id="hdrTimer" class="font-mono text-amber-300">00:00</span></div>
+    </div>
+  </header>
+
+  <!-- Main App Container -->
+  <main id="appContainer" class="max-w-6xl mx-auto">
+    <!-- VIEW 1: USER START / REGISTRATION -->
+    <section id="viewStart" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 text-center max-w-2xl mx-auto neon-border-cyan">
+      <div class="inline-block p-4 bg-cyan-950/50 rounded-2xl mb-4 border border-cyan-500/30">
+        <span class="text-4xl">⚔️</span>
+      </div>
+      <h2 class="font-orbitron font-black text-2xl sm:text-3xl text-cyan-400 mb-2">ENTER THE TEST REALM</h2>
+      <p class="text-slate-400 text-sm mb-6">Prepare for the 20-question comprehensive ELA mastery test or practice mini-games in the Skill Arcade.</p>
+
+      <div class="space-y-4 text-left max-w-md mx-auto mb-8">
+        <div>
+          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Student Full Name</label>
+          <input type="text" id="inputName" placeholder="e.g. Alex Morgan" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition" />
+        </div>
+        <div>
+          <label class="block text-xs uppercase font-bold text-slate-400 mb-1">Class Period / Section</label>
+          <input type="text" id="inputPeriod" placeholder="e.g. Period 3 - ELA" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition" />
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <button onclick="startExam()" class="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-orbitron font-extrabold px-8 py-4 rounded-xl text-sm transition transform hover:scale-105 active:scale-95 shadow-lg shadow-cyan-500/20">
+          🚀 START ASSESSMENT (1 TRY ONLY)
+        </button>
+        <button onclick="showArcade()" class="bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/40 font-orbitron font-bold px-6 py-4 rounded-xl text-sm transition hover:scale-105">
+          🕹️ SKILL ARCADE MINI-GAMES
+        </button>
+      </div>
+    </section>
+
+    <!-- VIEW 2: EXAM ASSESSMENT SCREEN -->
+    <section id="viewExam" class="hidden space-y-6">
+      <!-- Progress Bar -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-2">
+        <div class="flex justify-between text-xs font-semibold">
+          <span class="text-cyan-400" id="qProgressText">Question 1 of 20</span>
+          <span class="text-slate-400" id="qStandardBadge">Standard: ELA.6.R.1.1</span>
+        </div>
+        <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
+          <div id="qProgressBar" class="bg-gradient-to-r from-cyan-500 to-purple-500 h-full transition-all duration-300 w-0"></div>
+        </div>
+      </div>
+
+      <!-- Passage + Question Split Container -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Passage Container -->
+        <div class="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-2xl p-6 h-[480px] overflow-y-auto space-y-4" id="passageBox">
+          <!-- Injected dynamically -->
+        </div>
+
+        <!-- Question Container -->
+        <div class="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between" id="questionBox">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: ARCADE MINI-GAMES HUB -->
+    <section id="viewArcade" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <h2 class="font-orbitron font-extrabold text-2xl text-purple-400">🕹️ SKILL REVIEW ARCADE</h2>
+        <button onclick="showStart()" class="text-xs bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl text-slate-300 border border-slate-700">
+          ⬅️ Back to Main Screen
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Game 1 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-cyan-500/50 transition">
+          <div>
+            <div class="text-3xl mb-2">🎯</div>
+            <h3 class="font-orbitron font-bold text-cyan-300 text-lg mb-1">Root & Context Clue Slinger</h3>
+            <p class="text-xs text-slate-400 mb-4">Decipher Greek/Latin roots and contextual definitions to unlock high scores.</p>
+          </div>
+          <button onclick="launchGame(1)" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-bold text-xs text-slate-950 font-orbitron">PLAY GAME</button>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/50 transition">
+          <div>
+            <div class="text-3xl mb-2">🛡️</div>
+            <h3 class="font-orbitron font-bold text-purple-300 text-lg mb-1">Text Structure Defender</h3>
+            <p class="text-xs text-slate-400 mb-4">Identify Cause/Effect, Problem/Solution, Chronological, and Compare/Contrast text structures.</p>
+          </div>
+          <button onclick="launchGame(2)" class="w-full py-3 bg-purple-600 hover:bg-purple-500 rounded-xl font-bold text-xs text-slate-950 font-orbitron">PLAY GAME</button>
+        </div>
+
+        <!-- Game 3 -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition">
+          <div>
+            <div class="text-3xl mb-2">🔍</div>
+            <h3 class="font-orbitron font-bold text-emerald-300 text-lg mb-1">Theme vs. Summary Detective</h3>
+            <p class="text-xs text-slate-400 mb-4">Differentiate between universal life lessons (Themes) and objective passage overviews (Summaries).</p>
+          </div>
+          <button onclick="launchGame(3)" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-bold text-xs text-slate-950 font-orbitron">PLAY GAME</button>
+        </div>
+      </div>
+
+      <!-- Active Mini-game Arena -->
+      <div id="arcadeArena" class="hidden bg-slate-900 border border-purple-500/40 rounded-2xl p-6 text-center">
+        <!-- Arcade dynamic content injected here -->
+      </div>
+    </section>
+
+    <!-- VIEW 4: CANVAS SCORE REPORT / SCORECARD -->
+    <section id="viewResults" class="hidden space-y-6">
+      <div class="bg-slate-900 border border-cyan-500/50 rounded-3xl p-6 sm:p-10 print-card">
+        <div class="flex flex-wrap justify-between items-start border-b border-slate-800 pb-6 mb-6">
+          <div>
+            <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest">OFFICIAL ACADEMIC ASSESSMENT REPORT</span>
+            <h2 class="font-orbitron font-black text-2xl sm:text-3xl text-white mt-1">GRADE 6 ELA MASTERY SCORECARD</h2>
+            <p class="text-slate-400 text-xs mt-1">Single-Attempt Exam Mode Verification</p>
+          </div>
+          <div class="text-right">
+            <span class="inline-block bg-cyan-950 border border-cyan-500/40 text-cyan-300 font-mono text-xs px-3 py-1.5 rounded-lg mb-1" id="resVerificationHash">
+              HASH: CANVAS-6ELA-000000
+            </span>
+            <div class="text-xs text-slate-400" id="resDate"></div>
+          </div>
+        </div>
+
+        <!-- Student Info Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800 mb-6 text-xs">
+          <div><span class="text-slate-500 block">Student:</span><strong id="resName" class="text-white text-sm"></strong></div>
+          <div><span class="text-slate-500 block">Class Period:</span><strong id="resPeriod" class="text-white text-sm"></strong></div>
+          <div><span class="text-slate-500 block">Time Elapsed:</span><strong id="resTime" class="text-amber-400 text-sm"></strong></div>
+          <div><span class="text-slate-500 block">Final Score:</span><strong id="resScore" class="text-emerald-400 text-base"></strong></div>
+        </div>
+
+        <!-- Domain Breakdown Cards -->
+        <h3 class="font-orbitron font-bold text-slate-200 text-sm mb-3 uppercase tracking-wider">Category & Skill Standards Performance</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl">
+            <div class="text-xs text-slate-400 mb-1">Prose & Poetry (R.1)</div>
+            <div class="text-xl font-bold text-cyan-400" id="resProseScore">0/0</div>
+            <div class="text-[10px] text-slate-500 mt-1">Theme, Plot, POV, Figurative Lang.</div>
+          </div>
+          <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl">
+            <div class="text-xs text-slate-400 mb-1">Informational Text (R.2)</div>
+            <div class="text-xl font-bold text-purple-400" id="resInfoScore">0/0</div>
+            <div class="text-[10px] text-slate-500 mt-1">Central Idea, Structure, Argument</div>
+          </div>
+          <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl">
+            <div class="text-xs text-slate-400 mb-1">Vocabulary & Across Genres</div>
+            <div class="text-xl font-bold text-emerald-400" id="resVocabScore">0/0</div>
+            <div class="text-[10px] text-slate-500 mt-1">Roots, Context Clues, Paraphrasing</div>
+          </div>
+        </div>
+
+        <!-- Detailed Item Analysis Table -->
+        <h3 class="font-orbitron font-bold text-slate-200 text-sm mb-3 uppercase tracking-wider">Item Attempt Analysis</h3>
+        <div class="overflow-x-auto mb-8">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 bg-slate-950 text-slate-400">
+                <th class="p-2">#</th>
+                <th class="p-2">Standard</th>
+                <th class="p-2">Type</th>
+                <th class="p-2">Academic Verb / Focus</th>
+                <th class="p-2 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody id="resTableBody" class="divide-y divide-slate-800/50">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap justify-between items-center gap-4 no-print border-t border-slate-800 pt-6">
+          <button onclick="window.print()" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs font-orbitron flex items-center gap-2">
+            🖨️ PRINT / DOWNLOAD PDF REPORT
+          </button>
+          <button onclick="location.reload()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-6 py-3 rounded-xl text-xs">
+            🔄 Restart Quest
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Audio Sound Effects Utility -->
+  <script>
+    const AudioEngine = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      },
+      play(type) {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          const now = this.ctx.currentTime;
+
+          if (type === 'correct') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523.25, now); // C5
+            osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.15); // E5
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+            osc.start(now);
+            osc.stop(now + 0.3);
+          } else if (type === 'wrong') {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(220, now); // A3
+            osc.frequency.exponentialRampToValueAtTime(146.83, now + 0.2); // D3
+            gain.gain.setValueAtTime(0.25, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+            osc.start(now);
+            osc.stop(now + 0.25);
+          } else if (type === 'click') {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(440, now);
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+            osc.start(now);
+            osc.stop(now + 0.05);
+          }
+        } catch(e) { /* Audio fallback silently */ }
+      }
+    };
+
+    // Helper for interactive tooltips in text
+    function makeTooltip(word, definition) {
+      return `<span class="vocab-tooltip">${word}<span class="tooltip-text"><strong>${word}:</strong> ${definition}</span></span>`;
+    }
+  </script>
+
+  <!-- Data: Passages & 20 Standard-Aligned Questions -->
+  <script>
+    const PASSAGES = {
+      passage1: {
+        title: "The Bionic Forest",
+        type: "Informational Text",
+        content: `
+          <p class="mb-3">For decades, environmentalists watched the dense oak forests of North Ridge shrink under drought and industrial expansion. However, in 2024, a team of bio-engineers initiated a revolutionary reforestation project. They planted modified saplings equipped with micro-sensors that measure soil moisture, root strain, and nutrient levels in real-time.</p>
+          <p class="mb-3">These bio-sensors transmit continuous data streams to a central environmental monitoring tower. When drought conditions are detected, deep-subterranean automated hydration units release precise water reserves directly to the root networks. Rather than wasting millions of gallons through surface spraying, the system targets only the trees in immediate stress.</p>
+          <p>Critics originally questioned the financial cost of embedding artificial technology into natural ecosystems. Yet, three years into the project, North Ridge boasts a 92% tree survival rate—nearly triple the survival rate of traditional replanting zones. The artificial and natural worlds have formed an unprecedented partnership.</p>
+        `
+      },
+      passage2: {
+        title: "Echoes of the Canyon",
+        type: "Prose Fiction",
+        content: `
+          <p class="mb-3">Leo adjusted the heavy straps of his canvas backpack as the evening shadows stretched across the canyon walls. His grandfather had always insisted that the canyon spoke to those who knew how to listen. Leo used to dismiss the idea as whimsical folklore, but standing alone at the ridge as cold wind whipped through the pines, he wasn't so sure.</p>
+          <p class="mb-3">Far below, the river roared over jagged rocks like an endless murmur. Leo unrolled his topo map, comparing the contour lines with the towering granite spire to his left. He had promised his grandfather he would locate the old survey marker left behind in 1952. Finding it meant proving that he possessed the grit and navigation skill required for the wilderness guide certification.</p>
+          <p>Taking a deep breath, Leo stepped off the main trail onto a narrow deer path. The canyon didn't scream its secrets; it whispered them in subtle clues—a stack of balanced stones, a bent branch, a faint boot imprint in the dry clay.</p>
+        `
+      },
+      passage3: {
+        title: "Harvesting the Wind",
+        type: "Informational / Argument",
+        content: `
+          <p class="mb-3">Offshore wind turbines represent one of the most promising frontiers in renewable energy generation. Located miles out at sea, ocean winds blow faster and more consistently than land breezes, allowing mega-turbines to generate up to twice as much electrical power as inland wind farms.</p>
+          <p class="mb-3">However, marine biologists raise important concerns regarding marine habitat disruption during underwater construction. The loud acoustic pulses emitted during seabed piling can disorient sonar-dependent species like whales and dolphins. Furthermore, transmission cables laid across the seafloor could potentially alter local magnetic fields relied upon by migrating fish.</p>
+          <p>To address these challenges, energy engineers are developing floating turbine platforms anchored by lightweight synthetic cables. This eliminates the need for heavy seafloor drilling. By balancing clean energy demands with ocean conservation, engineers hope to power millions of coastal homes safely.</p>
+        `
+      }
+    };
+
+    const QUESTIONS = [
+      // Q1 - Single Select (DOK 2 - Infer)
+      {
+        id: 1,
+        standard: "ELA.6.R.1.1",
+        passageId: "passage2",
+        type: "single",
+        domain: "prose",
+        verbFocus: "Infer",
+        question: `Based on Paragraph 1 of 'Echoes of the Canyon', how can you ${makeTooltip('Infer', 'use clue details + background knowledge to reach a logical conclusion')} Leo's changing perspective toward his grandfather's belief about the canyon?`,
+        options: [
+          "He remains completely skeptical and plans to leave the canyon immediately.",
+          "He shifts from dismissing the idea as folklore to entertaining the possibility that it might be true.",
+          "He is angry that his grandfather tricked him into taking a dangerous hike.",
+          "He decides to build his own cabin in the canyon to listen to the river."
+        ],
+        correct: 1,
+        explanation: "In Paragraph 1, Leo originally dismissed his grandfather's idea as 'whimsical folklore', but standing alone at dusk, 'he wasn't so sure', showing his shifting perspective."
+      },
+
+      // Q2 - EBSR Part A/B (DOK 3 - Analyze / Infer)
+      {
+        id: 2,
+        standard: "ELA.6.R.1.1",
+        passageId: "passage2",
+        type: "ebsr",
+        domain: "prose",
+        verbFocus: "Infer & Analyze Evidence",
+        questionPartA: `Part A: How can you ${makeTooltip('Infer', 'use clue details + background knowledge to reach a logical conclusion')} Leo's primary motivation for finding the 1952 survey marker?`,
+        optionsA: [
+          "To collect valuable antique equipment to sell.",
+          "To prove he has the grit and wilderness skills needed for guide certification.",
+          "To build a shelter before the storm hits the canyon.",
+          "To map out a new highway through the national park."
+        ],
+        correctA: 1,
+        questionPartB: `Part B: Which quote from the text best supports your answer in Part A when you ${makeTooltip('Analyze', 'break down text into parts to examine how they work together')} the narrative details?`,
+        optionsB: [
+          "\"Leo adjusted the heavy straps of his canvas backpack as evening shadows stretched...\"",
+          "\"Finding it meant proving that he possessed the grit and navigation skill required for the wilderness guide certification.\"",
+          "\"Far below, the river roared over jagged rocks like an endless murmur.\"",
+          "\"He had promised his grandfather he would locate the old survey marker...\""
+        ],
+        correctB: 1,
+        explanation: "Part A correctly identifies Leo's goal of proving his readiness for guide certification. Part B directly cites the text sentence confirming this motivation."
+      },
+
+      // Q3 - Single Select (DOK 2 - Central Idea)
+      {
+        id: 3,
+        standard: "ELA.6.R.2.1",
+        passageId: "passage1",
+        type: "single",
+        domain: "info",
+        verbFocus: "Synthesize Central Idea",
+        question: `When you ${makeTooltip('Synthesize', 'combine information from multiple parts/sources to create a single understanding')} Paragraphs 1-3 of 'The Bionic Forest', what is the central idea of the passage?`,
+        options: [
+          "Traditional replanting methods are completely useless in North Ridge.",
+          "Merging artificial bio-sensors with natural trees has drastically improved forest survival rates.",
+          "Drought conditions can only be solved by spraying surface water across entire forests.",
+          "Critics successfully shut down the North Ridge technology project due to high costs."
+        ],
+        correct: 1,
+        explanation: "Combining details across the passage reveals the central focus: how technology (bio-sensors) and nature working together resulted in a 92% survival rate."
+      },
+
+      // Q4 - Multi-Select (DOK 3 - Evaluate / Details)
+      {
+        id: 4,
+        standard: "ELA.6.R.2.1",
+        passageId: "passage1",
+        type: "multi",
+        domain: "info",
+        verbFocus: "Evaluate Key Details",
+        question: `Select **TWO** statements that ${makeTooltip('Evaluate', 'judge or assess the quality, strength, or evidence of an idea/argument')} how the bio-sensor system optimizes forest hydration compared to traditional methods:`,
+        options: [
+          "It sprays millions of gallons of water across all surface leaves daily.",
+          "It transmits real-time root strain and soil moisture data to a central tower.",
+          "It releases subterranean hydration reserves specifically to trees undergoing immediate stress.",
+          "It cuts down old trees to make room for automated sensor towers."
+        ],
+        correct: [1, 2],
+        explanation: "Paragraph 2 explicitly states sensors transmit real-time data and target subterranean hydration only to trees experiencing immediate stress."
+      },
+
+      // Q5 - Single Select (DOK 2 - Text Structure)
+      {
+        id: 5,
+        standard: "ELA.6.R.2.1",
+        passageId: "passage3",
+        type: "single",
+        domain: "info",
+        verbFocus: "Analyze Structure",
+        question: `How does the author organize Paragraphs 2 and 3 of 'Harvesting the Wind' when you ${makeTooltip('Analyze', 'break down text into parts to examine how they work together')} its overall text structure?`,
+        options: [
+          "Chronology: Ordering events from oldest wind turbines to future designs.",
+          "Problem and Solution: Presenting environmental concerns of turbine installation followed by floating platform innovations.",
+          "Compare and Contrast: Showing how wind energy is identical to solar energy.",
+          "Cause and Effect: Explaining why ocean winds blow slower than inland gusts."
+        ],
+        correct: 1,
+        explanation: "Paragraph 2 details the environmental problems (disrupting marine life sonar/magnetic fields) and Paragraph 3 provides the solution (floating turbine platforms)."
+      },
+
+      // Q6 - Single Select (DOK 2 - Connotative Meaning)
+      {
+        id: 6,
+        standard: "ELA.6.V.1.3",
+        passageId: "passage2",
+        type: "single",
+        domain: "vocab",
+        verbFocus: "Determine Connotative Meaning",
+        question: `In Paragraph 3 of 'Echoes of the Canyon', the author states the canyon 'whispered them in subtle clues'. What is the ${makeTooltip('Connotative Meaning', 'the emotional feeling or association attached to a word beyond its literal dictionary definition')} of 'whispered' in this context?`,
+        options: [
+          "The canyon was literally speaking human words into Leo's ear.",
+          "The environmental clues were delicate, quiet, and required careful observation.",
+          "The wind was producing a loud, frightening screech.",
+          "Leo was afraid to speak out loud because of wild animals."
+        ],
+        correct: 1,
+        explanation: "'Whispered' carries a gentle, subtle connotation suggesting the clues were quiet and required careful attention rather than being obvious."
+      },
+
+      // Q7 - EBSR Part A/B (DOK 3 - Evaluate Argument)
+      {
+        id: 7,
+        standard: "ELA.6.R.2.4",
+        passageId: "passage3",
+        type: "ebsr",
+        domain: "info",
+        verbFocus: "Evaluate Argument",
+        questionPartA: `Part A: When you ${makeTooltip('Evaluate', 'judge or assess the quality, strength, or evidence of an idea/argument')} the author's argument in 'Harvesting the Wind', what primary claim is made about offshore turbines?`,
+        optionsA: [
+          "Offshore turbines are too expensive and should be abandoned immediately.",
+          "Offshore turbines offer immense clean energy potential, but design adjustments are necessary to protect ocean wildlife.",
+          "Marine life is unaffected by underwater construction noises.",
+          "Inland wind turbines produce twice as much power as offshore wind turbines."
+        ],
+        correctA: 1,
+        questionPartB: `Part B: Which piece of evidence best supports your evaluation in Part A?`,
+        optionsB: [
+          "\"Located miles out at sea, ocean winds blow faster and more consistently...\"",
+          "\"By balancing clean energy demands with ocean conservation, engineers hope to power millions of coastal homes safely.\"",
+          "\"The loud acoustic pulses emitted during seabed piling can disorient sonar-dependent species...\"",
+          "\"Transmission cables laid across the seafloor could potentially alter local magnetic fields...\""
+        ],
+        correctB: 1,
+        explanation: "Part A identifies the balanced claim (potential + environmental care). Part B selects the concluding sentence that directly summarizes this balance."
+      },
+
+      // Q8 - Single Select (DOK 2 - Author's Perspective)
+      {
+        id: 8,
+        standard: "ELA.6.R.2.3",
+        passageId: "passage1",
+        type: "single",
+        domain: "info",
+        verbFocus: "Differentiate Perspective",
+        question: `How can you ${makeTooltip('Differentiate', 'tell the difference between two or more things')} the critics' ${makeTooltip('Perspective', 'how the author or character views, feels, or thinks about events')} from the outcome of the North Ridge project?`,
+        options: [
+          "Critics expected the technology to fail due to cost, but the project achieved a 92% tree survival rate.",
+          "Critics believed the sensors would cause forest fires, which proved true.",
+          "Critics wanted more sensors installed, but engineers ran out of funding.",
+          "Critics and engineers held the exact same opinion from the beginning."
+        ],
+        correct: 0,
+        explanation: "Paragraph 3 notes critics initially doubted the financial cost, contrasting with the actual positive outcome of a 92% survival rate."
+      },
+
+      // Q9 - Multi-Select (DOK 2 - Root / Context Clues)
+      {
+        id: 9,
+        standard: "ELA.6.V.1.2",
+        passageId: "passage1",
+        type: "multi",
+        domain: "vocab",
+        verbFocus: "Analyze Word Meaning",
+        question: `Consider the word **subterranean** in Paragraph 2. The Latin root *terra* means 'earth/ground' and the prefix *sub-* means 'under'. Select **TWO** statements that correctly ${makeTooltip('Analyze', 'break down text into parts to examine how they work together')} the meaning or application of this word:`,
+        options: [
+          "Subterranean units operate above the treetop canopy.",
+          "Subterranean units are positioned underneath the surface of the ground.",
+          "The word refers to high-altitude atmospheric weather clouds.",
+          "Water reserves are delivered beneath the topsoil directly to deep roots."
+        ],
+        correct: [1, 3],
+        explanation: "Sub- (under) + terra (ground) means located under the ground, which aligns with delivering hydration beneath topsoil directly to deep roots."
+      },
+
+      // Q10 - Single Select (DOK 3 - Universal Theme)
+      {
+        id: 10,
+        standard: "ELA.6.R.1.2",
+        passageId: "passage2",
+        type: "single",
+        domain: "prose",
+        verbFocus: "Synthesize Theme",
+        question: `When you ${makeTooltip('Synthesize', 'combine information from multiple parts/sources to create a single understanding')} Leo's journey in 'Echoes of the Canyon', which option expresses a ${makeTooltip('Universal Theme', 'a broad message or lesson about life that applies to anyone, anywhere')} developed in the story?`,
+        options: [
+          "Grandfathers always know more about topo maps than young hikers.",
+          "Patience, keen observation, and respect for nature reveal paths that rushing obscures.",
+          "Wilderness guide certifications are too difficult for teenagers to achieve.",
+          "It is dangerous to hike in canyons after sunset without a flashlight."
+        ],
+        correct: 1,
+        explanation: "Leo learns that the canyon doesn't scream; it whispers in subtle clues. Paying quiet attention and being observant reveals the path."
+      },
+
+      // Q11 - Single Select (DOK 1 - Context Clues)
+      {
+        id: 11,
+        standard: "ELA.6.V.1.2",
+        passageId: "passage1",
+        type: "single",
+        domain: "vocab",
+        verbFocus: "Infer Context Meaning",
+        question: `In Paragraph 3 of 'The Bionic Forest', what does the word **unprecedented** mean based on context clues?`,
+        options: [
+          "Never done or known before; completely original.",
+          "Extremely dangerous and harmful.",
+          "Temporary and short-lived.",
+          "Ancient and outdated."
+        ],
+        correct: 0,
+        explanation: "The passage notes that blending tech and trees in this way was never done before with such success, making it unprecedented."
+      },
+
+      // Q12 - EBSR Part A/B (DOK 2 - Character Traits)
+      {
+        id: 12,
+        standard: "ELA.6.R.1.1",
+        passageId: "passage2",
+        type: "ebsr",
+        domain: "prose",
+        verbFocus: "Analyze Characterization",
+        questionPartA: `Part A: Which character trait best describes Leo in 'Echoes of the Canyon'?`,
+        optionsA: [
+          "Reckless and impulsive",
+          "Determined and observant",
+          "Timid and fearful",
+          "Disobedient and arrogant"
+        ],
+        correctA: 1,
+        questionPartB: `Part B: Which evidence from the text supports your answer in Part A?`,
+        optionsB: [
+          "\"Leo used to dismiss the idea as whimsical folklore...\"",
+          "\"He unrolled his topo map, comparing contour lines... taking a deep breath, Leo stepped off the main trail...\"",
+          "\"...as evening shadows stretched across the canyon walls.\"",
+          "\"He had promised his grandfather he would locate the old survey marker...\""
+        ],
+        correctB: 1,
+        explanation: "Leo meticulously checks his topo map and carefully observes subtle trail markers, demonstrating determination and observation."
+      },
+
+      // Q13 - Single Select (DOK 2 - Text Structure)
+      {
+        id: 13,
+        standard: "ELA.6.R.2.1",
+        passageId: "passage1",
+        type: "single",
+        domain: "info",
+        verbFocus: "Analyze Cause & Effect",
+        question: `Which cause-and-effect relationship is explicitly stated in Paragraph 2 of 'The Bionic Forest'?`,
+        options: [
+          "Drought conditions cause sensors to shut off automatically.",
+          "Detection of drought conditions causes subterranean hydration units to release targeted water reserves.",
+          "Surface spraying causes roots to strain and break.",
+          "High financial costs cause engineers to stop monitoring the central tower."
+        ],
+        correct: 1,
+        explanation: "Paragraph 2 explicitly connects drought detection (cause) with subterranean hydration units releasing water reserves (effect)."
+      },
+
+      // Q14 - Single Select (DOK 2 - Paraphrasing)
+      {
+        id: 14,
+        standard: "ELA.6.C.3.1",
+        passageId: "passage3",
+        type: "single",
+        domain: "info",
+        verbFocus: "Synthesize Paraphrase",
+        question: `Which of the following best paraphrases the main concern raised by marine biologists in Paragraph 2 of 'Harvesting the Wind'?`,
+        options: [
+          "Biologists fear underwater construction sound pulses and cable magnetic fields could disorient ocean species.",
+          "Biologists believe turbines will steal wind needed by sea birds.",
+          "Biologists worry floating platforms will pollute the drinking water of coastal cities.",
+          "Biologists demand all ocean wind farms be converted back into inland wind farms."
+        ],
+        correct: 0,
+        explanation: "This option accurately summarizes the key points in Paragraph 2 regarding sound disorienting sonar and cables altering magnetic fields."
+      },
+
+      // Q15 - Multi-Select (DOK 3 - Evaluate Evidence)
+      {
+        id: 15,
+        standard: "ELA.6.R.2.4",
+        passageId: "passage3",
+        type: "multi",
+        domain: "info",
+        verbFocus: "Evaluate Evidence",
+        question: `Select **TWO** facts from 'Harvesting the Wind' that support the claim that offshore wind energy is superior to inland wind energy:`,
+        options: [
+          "Ocean winds blow faster and more consistently than land breezes.",
+          "Offshore turbines require heavy seafloor drilling in all cases.",
+          "Ocean turbines can generate up to twice as much electrical power as inland wind farms.",
+          "Offshore cables create magnetic fields across the seafloor."
+        ],
+        correct: [0, 2],
+        explanation: "Paragraph 1 states ocean winds blow faster/more consistently and produce up to twice as much power as inland farms."
+      },
+
+      // Q16 - Single Select (DOK 2 - Point of View)
+      {
+        id: 16,
+        standard: "ELA.6.R.1.3",
+        passageId: "passage2",
+        type: "single",
+        domain: "prose",
+        verbFocus: "Differentiate POV",
+        question: `From which point of view is 'Echoes of the Canyon' narrated, and how does it impact the reader's understanding?`,
+        options: [
+          "First-person (Leo telling his own story using 'I'), giving readers access to all characters' thoughts.",
+          "Third-person limited, allowing readers to focus specifically on Leo's internal thoughts, feelings, and actions.",
+          "Third-person omniscient, giving equal detail about Leo's grandfather at home.",
+          "Second-person ('You'), directly commanding the reader to hike the canyon."
+        ],
+        correct: 1,
+        explanation: "The story uses third-person pronouns ('he', 'his') while focusing intimately on Leo's specific thoughts and feelings."
+      },
+
+      // Q17 - Single Select (DOK 1 - Academic Vocab)
+      {
+        id: 17,
+        standard: "ELA.6.V.1.3",
+        passageId: "passage2",
+        type: "single",
+        domain: "vocab",
+        verbFocus: "Define Vocabulary",
+        question: `In Paragraph 1 of 'Echoes of the Canyon', Leo initially thought his grandfather's idea was **whimsical**. What does **whimsical** mean in this context?`,
+        options: [
+          "Playfully quaint or fanciful, lacking serious reality.",
+          "Deeply frightening and terrifying.",
+          "Scientifically proven and factual.",
+          "Boring and repetitive."
+        ],
+        correct: 0,
+        explanation: "Whimsical means fanciful or playful, contrasting with Leo's later realization that the canyon's 'whispers' were real."
+      },
+
+      // Q18 - Single Select (DOK 2 - Plot Development)
+      {
+        id: 18,
+        standard: "ELA.6.R.1.1",
+        passageId: "passage2",
+        type: "single",
+        domain: "prose",
+        verbFocus: "Analyze Plot",
+        question: `How does the setting of the canyon at dusk contribute to the conflict in the passage?`,
+        options: [
+          "It makes it easy for Leo to find the marker quickly without looking.",
+          "The rising darkness and cold wind create time pressure and test Leo's resolve.",
+          "It forces Leo to turn back and abandon his goal completely.",
+          "It causes his grandfather to arrive and guide him."
+        ],
+        correct: 1,
+        explanation: "Setting the scene at dusk with creeping shadows and cold wind increases tension and tests Leo's determination to find the marker."
+      },
+
+      // Q19 - EBSR Part A/B (DOK 3 - Compare / Contrast Solutions)
+      {
+        id: 19,
+        standard: "ELA.6.R.2.1",
+        passageId: "passage3",
+        type: "ebsr",
+        domain: "info",
+        verbFocus: "Differentiate Solutions",
+        questionPartA: `Part A: How do engineers plan to resolve the issue of seabed piling noise disrupting marine mammals?`,
+        optionsA: [
+          "By building turbines exclusively on land instead.",
+          "By utilizing floating turbine platforms anchored with synthetic cables rather than drilling into the seafloor.",
+          "By playing loud underwater music to scare animals away.",
+          "By turning off wind turbines during fish migration seasons."
+        ],
+        correctA: 1,
+        questionPartB: `Part B: Which excerpt from Paragraph 3 directly explains why this solution works?`,
+        optionsB: [
+          "\"Offshore wind turbines represent one of the most promising frontiers...\"",
+          "\"This eliminates the need for heavy seafloor drilling.\"",
+          "\"Transmission cables laid across the seafloor could potentially alter local magnetic fields...\"",
+          "\"...ocean winds blow faster and more consistently...\""
+        ],
+        correctB: 1,
+        explanation: "Part A identifies floating platforms as the solution. Part B cites the text stating this eliminates heavy seafloor drilling."
+      },
+
+      // Q20 - Single Select (DOK 2 - Figurative Language)
+      {
+        id: 20,
+        standard: "ELA.6.R.1.4",
+        passageId: "passage2",
+        type: "single",
+        domain: "prose",
+        verbFocus: "Analyze Figurative Language",
+        question: `In Paragraph 2 of 'Echoes of the Canyon', the author writes: *'the river roared over jagged rocks like an endless murmur'*. What literary devices are combined in this description?`,
+        options: [
+          "Metaphor and Hyperbole",
+          "Personification/Simile ('roared', 'like an endless murmur') to contrast power with continuous sound",
+          "Onomatopoeia and Alliteration only",
+          "Idiom and Understatement"
+        ],
+        correct: 1,
+        explanation: "Giving the river personified voice ('roared') and using 'like' (simile) creates a vivid image of natural power."
+      }
+    ];
+  </script>
+
+  <!-- Main Application Logic Script -->
+  <script>
+    // State Variables
+    let currentUser = { name: "", period: "" };
+    let currentQIndex = 0;
+    let examAnswers = {}; // Stores student's locked responses: { qId: { answer, isCorrect } }
+    let examTimerInterval = null;
+    let secondsElapsed = 0;
+
+    // Arcade Mini-Game State
+    let arcadeState = { gameId: 0, score: 0, round: 0 };
+
+    // DOM Elements
+    const viewStart = document.getElementById('viewStart');
+    const viewExam = document.getElementById('viewExam');
+    const viewArcade = document.getElementById('viewArcade');
+    const viewResults = document.getElementById('viewResults');
+    const userInfoHeader = document.getElementById('userInfoHeader');
+
+    // Navigation & View Controllers
+    function showStart() {
+      viewStart.classList.remove('hidden');
+      viewExam.classList.add('hidden');
+      viewArcade.classList.add('hidden');
+      viewResults.classList.add('hidden');
+      userInfoHeader.classList.add('hidden');
+    }
+
+    function showArcade() {
+      viewStart.classList.add('hidden');
+      viewExam.classList.add('hidden');
+      viewArcade.classList.remove('hidden');
+      viewResults.classList.add('hidden');
+      document.getElementById('arcadeArena').classList.add('hidden');
+    }
+
+    function startExam() {
+      const name = document.getElementById('inputName').value.trim();
+      const period = document.getElementById('inputPeriod').value.trim();
+
+      if (!name || !period) {
+        alert("Please enter both your Full Name and Class Period before entering the assessment.");
+        return;
+      }
+
+      currentUser.name = name;
+      currentUser.period = period;
+
+      document.getElementById('hdrName').textContent = name;
+      document.getElementById('hdrPeriod').textContent = period;
+      userInfoHeader.classList.remove('hidden');
+
+      viewStart.classList.add('hidden');
+      viewExam.classList.remove('hidden');
+
+      currentQIndex = 0;
+      examAnswers = {};
+      secondsElapsed = 0;
+
+      // Start Timer
+      clearInterval(examTimerInterval);
+      examTimerInterval = setInterval(() => {
+        secondsElapsed++;
+        const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+        const secs = String(secondsElapsed % 60).padStart(2, '0');
+        document.getElementById('hdrTimer').textContent = `${mins}:${secs}`;
+      }, 1000);
+
+      renderQuestion();
+    }
+
+    // Render Current Question in Exam Mode
+    function renderQuestion() {
+      const q = QUESTIONS[currentQIndex];
+      const passage = PASSAGES[q.passageId];
+
+      // Update Progress
+      document.getElementById('qProgressText').textContent = `Question ${currentQIndex + 1} of ${QUESTIONS.length}`;
+      document.getElementById('qStandardBadge').textContent = `Standard: ${q.standard}`;
+      const pct = ((currentQIndex + 1) / QUESTIONS.length) * 100;
+      document.getElementById('qProgressBar').style.width = `${pct}%`;
+
+      // Render Passage Box
+      document.getElementById('passageBox').innerHTML = `
+        <div class="border-b border-slate-800 pb-3 mb-4 flex justify-between items-center">
+          <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest">${passage.type}</span>
+          <span class="text-xs text-slate-500 font-mono">${q.passageId.toUpperCase()}</span>
+        </div>
+        <h3 class="font-orbitron font-bold text-xl text-white mb-3">${passage.title}</h3>
+        <div class="text-sm text-slate-300 leading-relaxed space-y-3">
+          ${passage.content}
+        </div>
+      `;
+
+      // Check if question has already been locked/answered
+      const existingAnswer = examAnswers[q.id];
+
+      // Render Question Box
+      const qBox = document.getElementById('questionBox');
+      
+      let html = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="badge-vocab">DOK FOCUS: ${q.verbFocus.toUpperCase()}</span>
+            <span class="text-xs text-amber-400 font-semibold">⚠️ 1 TRY ONLY - NO RETRIES</span>
+          </div>
+      `;
+
+      if (q.type === 'single') {
+        html += `
+          <p class="text-sm font-medium text-slate-100 leading-snug">${q.question}</p>
+          <div class="space-y-2 mt-4" id="optionsContainer">
+            ${q.options.map((opt, idx) => `
+              <button onclick="submitSingleAnswer(${idx})" ${existingAnswer ? 'disabled' : ''} 
+                class="w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm transition flex items-start gap-3 
+                ${getOptionStyle(q.id, idx, existingAnswer)}">
+                <span class="font-bold font-orbitron">${String.fromCharCode(65 + idx)}.</span>
+                <span class="flex-1">${opt}</span>
+              </button>
+            `).join('')}
+          </div>
+        `;
+      } else if (q.type === 'multi') {
+        const selected = existingAnswer ? existingAnswer.selected : [];
+        html += `
+          <p class="text-sm font-medium text-slate-100 leading-snug">${q.question}</p>
+          <div class="space-y-2 mt-4">
+            ${q.options.map((opt, idx) => `
+              <label class="w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm flex items-start gap-3 cursor-pointer transition
+                ${getMultiOptionStyle(q.id, idx, existingAnswer)}">
+                <input type="checkbox" value="${idx}" class="multi-check mt-1" ${existingAnswer ? 'disabled' : ''} ${selected.includes(idx) ? 'checked' : ''} />
+                <span class="font-bold font-orbitron">${String.fromCharCode(65 + idx)}.</span>
+                <span class="flex-1">${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+          ${!existingAnswer ? `
+            <button onclick="submitMultiAnswer()" class="w-full mt-4 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-orbitron rounded-xl text-xs">
+              SUBMIT SELECTIONS (1 TRY ONLY)
+            </button>
+          ` : ''}
+        `;
+      } else if (q.type === 'ebsr') {
+        const ansA = existingAnswer ? existingAnswer.partA : null;
+        const ansB = existingAnswer ? existingAnswer.partB : null;
+
+        html += `
+          <!-- Part A -->
+          <div class="space-y-2">
+            <p class="text-xs sm:text-sm font-semibold text-cyan-300">${q.questionPartA}</p>
+            <div class="space-y-1.5">
+              ${q.optionsA.map((opt, idx) => `
+                <button onclick="selectEbsrA(${idx})" ${existingAnswer ? 'disabled' : ''} id="ebsrA_${idx}"
+                  class="w-full text-left p-2.5 rounded-lg border text-xs transition flex items-start gap-2 ${getEbsrStyleA(q.id, idx, existingAnswer)}">
+                  <span class="font-bold">${String.fromCharCode(65 + idx)}.</span>
+                  <span>${opt}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Part B -->
+          <div class="space-y-2 mt-4">
+            <p class="text-xs sm:text-sm font-semibold text-purple-300">${q.questionPartB}</p>
+            <div class="space-y-1.5">
+              ${q.optionsB.map((opt, idx) => `
+                <button onclick="selectEbsrB(${idx})" ${existingAnswer ? 'disabled' : ''} id="ebsrB_${idx}"
+                  class="w-full text-left p-2.5 rounded-lg border text-xs transition flex items-start gap-2 ${getEbsrStyleB(q.id, idx, existingAnswer)}">
+                  <span class="font-bold">${String.fromCharCode(65 + idx)}.</span>
+                  <span>${opt}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          ${!existingAnswer ? `
+            <button onclick="submitEbsrAnswer()" class="w-full mt-4 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 text-slate-950 font-bold font-orbitron rounded-xl text-xs">
+              LOCK IN BOTH PARTS (1 TRY ONLY)
+            </button>
+          ` : ''}
+        `;
+      }
+
+      // Feedback display if answered
+      if (existingAnswer) {
+        html += `
+          <div class="mt-4 p-4 rounded-xl border ${existingAnswer.isCorrect ? 'bg-emerald-950/60 border-emerald-500 text-emerald-200' : 'bg-rose-950/60 border-rose-500 text-rose-200'} text-xs">
+            <div class="font-bold mb-1">${existingAnswer.isCorrect ? '✅ CORRECT' : '❌ INCORRECT (LOCKED - NO RETRY)'}</div>
+            <div>${q.explanation}</div>
+          </div>
+        `;
+      }
+
+      html += `</div>`;
+
+      // Footer Navigation Buttons
+      html += `
+        <div class="flex justify-between items-center border-t border-slate-800 pt-4 mt-6">
+          <button onclick="prevQuestion()" ${currentQIndex === 0 ? 'disabled class="opacity-40 cursor-not-allowed text-slate-600"' : 'class="text-slate-300 hover:text-white"'} text-xs font-semibold">
+            ⬅️ Previous
+          </button>
+          ${currentQIndex < QUESTIONS.length - 1 ? `
+            <button onclick="nextQuestion()" class="bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-bold px-5 py-2.5 rounded-xl text-xs">
+              Next Question ➡️
+            </button>
+          ` : `
+            <button onclick="finishExam()" class="bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black font-orbitron px-6 py-2.5 rounded-xl text-xs">
+              🏁 SUBMIT FINAL ASSESSMENT
+            </button>
+          `}
+        </div>
+      `;
+
+      qBox.innerHTML = html;
+    }
+
+    // Single Answer Selection Handler
+    function submitSingleAnswer(optIdx) {
+      const q = QUESTIONS[currentQIndex];
+      if (examAnswers[q.id]) return; // Strict 1 try lock
+
+      const isCorrect = (optIdx === q.correct);
+      examAnswers[q.id] = { answer: optIdx, isCorrect };
+      
+      AudioEngine.play(isCorrect ? 'correct' : 'wrong');
+      renderQuestion();
+    }
+
+    // Multi-Select Submission Handler
+    function submitMultiAnswer() {
+      const q = QUESTIONS[currentQIndex];
+      if (examAnswers[q.id]) return;
+
+      const checkedBoxes = Array.from(document.querySelectorAll('.multi-check:checked')).map(cb => parseInt(cb.value));
+      if (checkedBoxes.length === 0) {
+        alert("Please select at least one option before submitting.");
+        return;
+      }
+
+      // Check if exact match
+      const correctSorted = [...q.correct].sort();
+      const userSorted = [...checkedBoxes].sort();
+      const isCorrect = JSON.stringify(correctSorted) === JSON.stringify(userSorted);
+
+      examAnswers[q.id] = { selected: checkedBoxes, isCorrect };
+      AudioEngine.play(isCorrect ? 'correct' : 'wrong');
+      renderQuestion();
+    }
+
+    // Temporary EBSR Selection State
+    let tempEbsrA = null;
+    let tempEbsrB = null;
+
+    function selectEbsrA(idx) {
+      tempEbsrA = idx;
+      AudioEngine.play('click');
+      document.querySelectorAll('[id^="ebsrA_"]').forEach((btn, i) => {
+        if (i === idx) {
+          btn.className = "w-full text-left p-2.5 rounded-lg border text-xs transition flex items-start gap-2 bg-cyan-950 border-cyan-400 text-cyan-200";
+        } else {
+          btn.className = "w-full text-left p-2.5 rounded-lg border text-xs transition flex items-start gap-2 bg-slate-950 border-slate-800 text-slate-400";
+        }
+      });
+    }
+
+    function selectEbsrB(idx) {
+      tempEbsrB = idx;
+      AudioEngine.play('click');
+      document.querySelectorAll('[id^="ebsrB_"]').forEach((btn, i) => {
+        if (i === idx) {
+          btn.className = "w-full text-left p-2.5 rounded-lg border text-xs transition flex items-start gap-2 bg-purple-950 border-purple-400 text-purple-200";
+        } else {
+          btn.className = "w-full text-left p-2.5 rounded-lg border text-xs transition flex items-start gap-2 bg-slate-950 border-slate-800 text-slate-400";
+        }
+      });
+    }
+
+    function submitEbsrAnswer() {
+      const q = QUESTIONS[currentQIndex];
+      if (examAnswers[q.id]) return;
+
+      if (tempEbsrA === null || tempEbsrB === null) {
+        alert("Please answer BOTH Part A and Part B before locking in your answer.");
+        return;
+      }
+
+      const isCorrect = (tempEbsrA === q.correctA && tempEbsrB === q.correctB);
+      examAnswers[q.id] = { partA: tempEbsrA, partB: tempEbsrB, isCorrect };
+      
+      tempEbsrA = null;
+      tempEbsrB = null;
+
+      AudioEngine.play(isCorrect ? 'correct' : 'wrong');
+      renderQuestion();
+    }
+
+    // Option Styling Helpers for Single Select
+    function getOptionStyle(qId, optIdx, existingAns) {
+      if (!existingAns) {
+        return "bg-slate-950 border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:bg-slate-900";
+      }
+      const q = QUESTIONS.find(item => item.id === qId);
+      if (optIdx === q.correct) {
+        return "bg-emerald-950 border-emerald-500 text-emerald-200 font-bold";
+      }
+      if (existingAns.answer === optIdx && !existingAns.isCorrect) {
+        return "bg-rose-950 border-rose-500 text-rose-200 font-bold";
+      }
+      return "bg-slate-950 border-slate-800 text-slate-600 opacity-60";
+    }
+
+    function getMultiOptionStyle(qId, optIdx, existingAns) {
+      if (!existingAns) {
+        return "bg-slate-950 border-slate-800 text-slate-300 hover:border-cyan-500/50";
+      }
+      const q = QUESTIONS.find(item => item.id === qId);
+      const isCorrectOpt = q.correct.includes(optIdx);
+      const isSelected = existingAns.selected.includes(optIdx);
+
+      if (isCorrectOpt) {
+        return "bg-emerald-950 border-emerald-500 text-emerald-200 font-bold";
+      }
+      if (isSelected && !isCorrectOpt) {
+        return "bg-rose-950 border-rose-500 text-rose-200 font-bold";
+      }
+      return "bg-slate-950 border-slate-800 text-slate-600 opacity-60";
+    }
+
+    function getEbsrStyleA(qId, optIdx, existingAns) {
+      if (!existingAns) return "bg-slate-950 border-slate-800 text-slate-300";
+      const q = QUESTIONS.find(item => item.id === qId);
+      if (optIdx === q.correctA) return "bg-emerald-950 border-emerald-500 text-emerald-200 font-bold";
+      if (existingAns.partA === optIdx && existingAns.partA !== q.correctA) return "bg-rose-950 border-rose-500 text-rose-200 font-bold";
+      return "bg-slate-950 border-slate-800 text-slate-600 opacity-60";
+    }
+
+    function getEbsrStyleB(qId, optIdx, existingAns) {
+      if (!existingAns) return "bg-slate-950 border-slate-800 text-slate-300";
+      const q = QUESTIONS.find(item => item.id === qId);
+      if (optIdx === q.correctB) return "bg-emerald-950 border-emerald-500 text-emerald-200 font-bold";
+      if (existingAns.partB === optIdx && existingAns.partB !== q.correctB) return "bg-rose-950 border-rose-500 text-rose-200 font-bold";
+      return "bg-slate-950 border-slate-800 text-slate-600 opacity-60";
+    }
+
+    function prevQuestion() {
+      if (currentQIndex > 0) {
+        currentQIndex--;
+        renderQuestion();
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQIndex < QUESTIONS.length - 1) {
+        currentQIndex++;
+        renderQuestion();
+      }
+    }
+
+    // Finish Exam & Generate Scorecard Report
+    function finishExam() {
+      const answeredCount = Object.keys(examAnswers).length;
+      if (answeredCount < QUESTIONS.length) {
+        if (!confirm(`You have answered ${answeredCount} of ${QUESTIONS.length} questions. Unanswered questions will be scored as incorrect. Are you sure you want to finish?`)) {
+          return;
+        }
+      }
+
+      clearInterval(examTimerInterval);
+
+      // Hide Exam, Show Results
+      viewExam.classList.add('hidden');
+      viewResults.classList.remove('hidden');
+
+      // Calculate Scores
+      let totalCorrect = 0;
+      let proseCorrect = 0, proseTotal = 0;
+      let infoCorrect = 0, infoTotal = 0;
+      let vocabCorrect = 0, vocabTotal = 0;
+
+      QUESTIONS.forEach(q => {
+        const ans = examAnswers[q.id];
+        const isRight = ans ? ans.isCorrect : false;
+
+        if (isRight) totalCorrect++;
+
+        if (q.domain === 'prose') {
+          proseTotal++;
+          if (isRight) proseCorrect++;
+        } else if (q.domain === 'info') {
+          infoTotal++;
+          if (isRight) infoCorrect++;
+        } else if (q.domain === 'vocab') {
+          vocabTotal++;
+          if (isRight) vocabCorrect++;
+        }
+      });
+
+      const scorePct = Math.round((totalCorrect / QUESTIONS.length) * 100);
+
+      // Fill Scorecard UI
+      document.getElementById('resName').textContent = currentUser.name;
+      document.getElementById('resPeriod').textContent = currentUser.period;
+      document.getElementById('resTime').textContent = document.getElementById('hdrTimer').textContent;
+      document.getElementById('resScore').textContent = `${scorePct}% (${totalCorrect}/${QUESTIONS.length})`;
+
+      document.getElementById('resProseScore').textContent = `${proseCorrect}/${proseTotal}`;
+      document.getElementById('resInfoScore').textContent = `${infoCorrect}/${infoTotal}`;
+      document.getElementById('resVocabScore').textContent = `${vocabCorrect}/${vocabTotal}`;
+
+      // Verification Hash Generator
+      const hash = 'CANVAS-6ELA-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+      document.getElementById('resVerificationHash').textContent = `HASH: ${hash}`;
+      document.getElementById('resDate').textContent = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+      // Populate Table
+      const tbody = document.getElementById('resTableBody');
+      tbody.innerHTML = QUESTIONS.map((q, i) => {
+        const ans = examAnswers[q.id];
+        const status = ans ? (ans.isCorrect ? '<span class="text-emerald-400 font-bold">PASS (1 Try)</span>' : '<span class="text-rose-400 font-bold">INCORRECT</span>') : '<span class="text-slate-500">UNANSWERED</span>';
+        return `
+          <tr class="hover:bg-slate-900/50">
+            <td class="p-2 font-mono">${i + 1}</td>
+            <td class="p-2 text-cyan-300 font-mono">${q.standard}</td>
+            <td class="p-2 uppercase text-[10px] text-slate-400">${q.type}</td>
+            <td class="p-2 text-slate-200">${q.verbFocus}</td>
+            <td class="p-2 text-center">${status}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // SKILL ARCADE MINI-GAME CONTROLLERS
+    function launchGame(gameId) {
+      arcadeState = { gameId, score: 0, round: 1 };
+      const arena = document.getElementById('arcadeArena');
+      arena.classList.remove('hidden');
+
+      if (gameId === 1) renderSlingerRound();
+      else if (gameId === 2) renderDefenderRound();
+      else if (gameId === 3) renderDetectiveRound();
+    }
+
+    // Mini-Game 1: Root Slinger
+    const SLINGER_DATA = [
+      { root: "chron", meaning: "time", word: "chronological", question: "If 'chron' means time, what does 'chronological order' mean?", options: ["Arranged in order of occurrence in time", "Arranged by importance", "Written in secret code"], correct: 0 },
+      { root: "bio", meaning: "life", word: "biodegradable", question: "If 'bio' means life, what does a 'biography' focus on?", options: ["The life story of a real person", "The study of weather patterns", "A fictional story about space"], correct: 0 },
+      { root: "graph", meaning: "write/draw", word: "autograph", question: "If 'graph' means write, what is an 'autograph'?", options: ["A handwritten signature", "An automatic car", "A drawn map of the ocean"], correct: 0 }
+    ];
+
+    function renderSlingerRound() {
+      const item = SLINGER_DATA[(arcadeState.round - 1) % SLINGER_DATA.length];
+      const arena = document.getElementById('arcadeArena');
+      arena.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex justify-between items-center border-b border-purple-500/30 pb-3">
+            <span class="text-xs font-bold text-cyan-400">🎯 ROOT & CONTEXT SLINGER - ROUND ${arcadeState.round}</span>
+            <span class="text-xs font-mono text-amber-300">SCORE: ${arcadeState.score}</span>
+          </div>
+          <div class="p-4 bg-slate-950 rounded-xl border border-cyan-500/30">
+            <span class="text-2xl font-bold text-cyan-300 font-orbitron">${item.root.toUpperCase()}</span>
+            <p class="text-xs text-slate-400 mt-1">Greek/Latin Root Meaning: "${item.meaning}"</p>
+          </div>
+          <p class="text-sm font-semibold text-slate-200">${item.question}</p>
+          <div class="grid grid-cols-1 gap-2 max-w-md mx-auto">
+            ${item.options.map((opt, idx) => `
+              <button onclick="checkArcadeAns(${idx === item.correct})" class="p-3 bg-slate-800 hover:bg-cyan-900/40 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 transition">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Mini-Game 2: Text Structure Defender
+    const DEFENDER_DATA = [
+      { text: "Due to rising ocean temperatures, coral reefs are experiencing severe bleaching events. As a result, marine biodiversity in coastal waters is declining.", answer: "Cause and Effect", options: ["Cause and Effect", "Compare and Contrast", "Chronological Order"], correct: 0 },
+      { text: "Unlike solar panels which require sunlight during the day, wind turbines can generate power continuously throughout the night.", answer: "Compare and Contrast", options: ["Problem and Solution", "Compare and Contrast", "Cause and Effect"], correct: 1 }
+    ];
+
+    function renderDefenderRound() {
+      const item = DEFENDER_DATA[(arcadeState.round - 1) % DEFENDER_DATA.length];
+      const arena = document.getElementById('arcadeArena');
+      arena.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex justify-between items-center border-b border-purple-500/30 pb-3">
+            <span class="text-xs font-bold text-purple-400">🛡️ TEXT STRUCTURE DEFENDER - ROUND ${arcadeState.round}</span>
+            <span class="text-xs font-mono text-amber-300">SCORE: ${arcadeState.score}</span>
+          </div>
+          <p class="text-sm italic text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800">"${item.text}"</p>
+          <p class="text-xs font-semibold text-purple-300">Which text structure is used in this passage segment?</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-lg mx-auto">
+            ${item.options.map((opt, idx) => `
+              <button onclick="checkArcadeAns(${idx === item.correct})" class="p-3 bg-slate-800 hover:bg-purple-900/40 text-slate-200 rounded-xl text-xs font-bold border border-slate-700 transition">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Mini-Game 3: Theme vs Summary Detective
+    const DETECTIVE_DATA = [
+      { text: "Stepping into unfamiliar territory requires courage, but embracing change ultimately fosters personal growth.", type: "Universal Theme", options: ["Universal Theme", "Objective Summary"], correct: 0 },
+      { text: "Leo hiked down into the canyon, navigated with a map to find the 1952 marker, and proved his wilderness guide skills.", type: "Objective Summary", options: ["Universal Theme", "Objective Summary"], correct: 1 }
+    ];
+
+    function renderDetectiveRound() {
+      const item = DETECTIVE_DATA[(arcadeState.round - 1) % DETECTIVE_DATA.length];
+      const arena = document.getElementById('arcadeArena');
+      arena.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex justify-between items-center border-b border-purple-500/30 pb-3">
+            <span class="text-xs font-bold text-emerald-400">🔍 THEME VS. SUMMARY DETECTIVE - ROUND ${arcadeState.round}</span>
+            <span class="text-xs font-mono text-amber-300">SCORE: ${arcadeState.score}</span>
+          </div>
+          <p class="text-sm font-medium text-slate-200 bg-slate-950 p-4 rounded-xl border border-slate-800">"${item.text}"</p>
+          <p class="text-xs font-semibold text-emerald-300">Classify this statement correctly:</p>
+          <div class="grid grid-cols-2 gap-3 max-w-xs mx-auto">
+            ${item.options.map((opt, idx) => `
+              <button onclick="checkArcadeAns(${idx === item.correct})" class="p-3 bg-slate-800 hover:bg-emerald-900/40 text-slate-200 rounded-xl text-xs font-bold border border-slate-700 transition">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function checkArcadeAns(isRight) {
+      if (isRight) {
+        arcadeState.score += 100;
+        AudioEngine.play('correct');
+        alert("🎯 EXCELLENT! +100 Points");
+      } else {
+        AudioEngine.play('wrong');
+        alert("❌ INCORRECT - Keep practicing!");
+      }
+
+      arcadeState.round++;
+      if (arcadeState.round > 3) {
+        alert(`🏆 MINI-GAME COMPLETE! Final Arcade Score: ${arcadeState.score}`);
+        document.getElementById('arcadeArena').classList.add('hidden');
+      } else {
+        if (arcadeState.gameId === 1) renderSlingerRound();
+        else if (arcadeState.gameId === 2) renderDefenderRound();
+        else if (arcadeState.gameId === 3) renderDetectiveRound();
+      }
+    }
+  </script>
+</body>
+</html>
